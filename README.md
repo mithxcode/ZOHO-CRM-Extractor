@@ -1,74 +1,60 @@
-Zoho CRM Data Extractor – Chrome Extension
-Overview
+# Zoho CRM Data Extractor – Chrome Extension
 
-Zoho CRM Data Extractor is a Chrome Extension built using Manifest V3
-that demonstrates extraction of CRM module data (Leads, Contacts, Accounts, Deals, Tasks), local persistence, and visualization in a popup dashboard.
+## Overview
+Zoho CRM Data Extractor is a Chrome Extension built using **Manifest V3**.  
+It demonstrates extraction of CRM module data (**Leads, Contacts, Accounts, Deals, Tasks**), local persistence, and visualization in a **professional popup dashboard**.
 
-The project focuses on Chrome Extension architecture, data flow, storage design, and UI interaction, as required in a technical assessment.
+**Purpose for Assessment:**
+- Show understanding of **Chrome Extension architecture**
+- Demonstrate **data flow, storage design, and UI interaction**
+- Maintain **modular and extendable code structure**
 
-It is designed to be modular, maintainable, and easily extensible, allowing future integration with live Zoho CRM pages.
+---
 
-Key Features
+## Key Features
 
-Module-based extraction (Leads, Contacts, Accounts, Deals, Tasks)
+- **Module-based extraction:** Supports Leads, Contacts, Accounts, Deals, Tasks  
+- **Popup dashboard:** Professional UI with module selection dropdown  
+- **Local persistence:** Uses `chrome.storage.local` for storing data  
+- **Export data:** All extracted data can be exported as CSV  
+- **Delete functionality:** Delete module-specific data or clear all data  
+- **Timestamped records:** Every extraction is timestamped  
+- **Scrollable JSON output:** Allows viewing of extracted data  
+- **Dummy/mock data support:** Safe testing without live CRM  
 
-Popup dashboard with module selection and modern professional UI
+---
 
-Local persistence using chrome.storage.local
+## Tech Stack
 
-Export extracted data as CSV for reporting or testing
+- **Chrome Extension (Manifest V3)**  
+- **JavaScript / React.js (optional)**  
+- **Tailwind CSS (for professional UI)**  
+- **Chrome APIs:**
+  - `chrome.runtime` → message passing
+  - `chrome.tabs` → interact with active tab
+  - `chrome.storage` → local storage
+- **Content Scripts + Service Worker**  
 
-Delete module-specific data or clear all data
+---
 
-Timestamped extraction records to track when data was generated
+## Extraction Strategy
 
-Scrollable JSON output for easy inspection
+- Uses a **mock data provider** to simulate Zoho CRM modules  
+- Designed to support **DOM-based extraction** in future  
+- Validates:
+  - **Message passing** between popup → content script → background
+  - **Module-based storage schema**
+  - **UI behavior** with live JSON output
+  - **Export CSV functionality**
+  - **Delete / Clear module-specific data**
 
-Responsive UI with styled buttons and hover effects
+---
 
-Supports mock/dummy data for safe assessment without live data
+## Storage Schema
 
-Tech Stack
+All data is stored in `chrome.storage.local` with module-based structure:
 
-Chrome Extension (Manifest V3)
-
-JavaScript (Vanilla / React.js optional for popup)
-
-Tailwind CSS for styling (optional, extendable)
-
-Chrome APIs:
-
-chrome.runtime → Message passing
-
-chrome.tabs → Interact with active tab
-
-chrome.storage → Local data persistence
-
-Content Scripts + Service Worker for modular architecture
-
-Extraction Strategy
-
-To demonstrate the complete end-to-end workflow (extraction → storage → UI → export), a mock data provider is used.
-
-The architecture is designed to support DOM-based extraction from Zoho CRM pages.
-The mock layer can be replaced with live DOM selectors for each module without changing the overall system design.
-
-This approach allows clear validation of:
-
-Message passing between popup → content script → background
-
-Module-based storage schema
-
-UI behavior with real-time JSON output
-
-CSV export functionality
-
-Delete / Clear module-specific or all data
-
-Storage Schema
-
-All data is stored in chrome.storage.local using a module-based structure:
-
+```json
 {
   "zoho_data": {
     "leads": [],
@@ -79,82 +65,77 @@ All data is stored in chrome.storage.local using a module-based structure:
     "lastSync": 0
   }
 }
-
-
 Notes:
 
-Each module key stores an array of records (dummy or extracted).
+Each module stores an array of records
 
-lastSync is a timestamp of the last extraction for reference.
+lastSync tracks the last extraction timestamp
 
-Deleting a module only removes that module's array, leaving others intact.
+Deleting a module removes only that module's data
 
 Extension Architecture
-
 Popup (UI Layer)
 
 Module selection dropdown
 
 Buttons: Extract, Delete Module, Clear All, Export CSV
 
-Output area shows JSON data
+Output area displays JSON
 
 Content Scripts (Extraction Layer)
 
-Generates dummy data for each module
+Generates dummy data per module
 
-Can be extended to read DOM elements for live Zoho CRM data
+Can be extended to scrape live Zoho CRM DOM
 
-Sends extracted data back to popup via chrome.runtime.sendMessage
+Sends extracted data back via chrome.runtime.sendMessage
 
 Storage Layer
 
-chrome.storage.local stores all data
+Data stored in chrome.storage.local
 
 Supports delete module and clear all operations
 
 Export Layer
 
-Exports data from all modules into CSV
+Combines all module data into a single CSV
 
-Automatically concatenates all records into a single CSV
+Downloads automatically
 
-Future Enhancements (Assessment Points)
+Usage Instructions
+Install extension via chrome://extensions/ → Load unpacked
 
+Click the extension icon in the Chrome toolbar
+
+Select Module: Leads / Contacts / Deals / Accounts / Tasks
+
+Extract Data: Generates and displays JSON in popup
+
+Delete Module Data: Deletes selected module instantly
+
+Clear All Data: Deletes all stored data
+
+Export CSV: Downloads all module data as CSV
+
+Assessment Highlights
+Demonstrates Chrome Extension messaging and storage design
+
+Shows ability to generate, manipulate, and export structured data
+
+Modular, maintainable, and ready for live CRM integration
+
+Professional, user-friendly popup interface for assessment/demo
+
+Future Enhancements
 Live DOM scraping for real Zoho CRM data
 
 Shadow DOM handling for advanced pages
 
-Pagination handling for extracting large datasets
+Pagination support for large datasets
 
-Filtering (e.g., stage, date range, owner) before export
+Filtering by stage, date, or owner
 
-Improved UI/UX using React + Tailwind components
+Improved UI/UX with React components
 
-Background syncing to periodically fetch updates
+Background sync for automatic updates
 
-Installation
-
-Clone or download this repository.
-
-Open Chrome → chrome://extensions/
-
-Enable Developer mode.
-
-Click Load unpacked and select the extension folder.
-
-The extension will appear in the Chrome toolbar.
-
-Usage
-
-Click the extension icon in Chrome toolbar.
-
-Select the module (Leads, Contacts, Deals, Accounts, Tasks).
-
-Click Extract Data → JSON appears in popup.
-
-Click Delete Module Data → Removes selected module data.
-
-Click Clear All Data → Deletes all stored records.
-
-Click Export CSV → Downloads CSV of all module data.
