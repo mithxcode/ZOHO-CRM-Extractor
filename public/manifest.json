@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Zoho CRM Extractor",
+  "version": "1.0",
+  "description": "Extract Zoho CRM data",
+  "permissions": ["storage"],
+  "host_permissions": ["https://crm.zoho.in/*", "https://crm.zoho.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://crm.zoho.in/*", "https://crm.zoho.com/*"],
+      "js": ["contentScript.js"]
+    }
+  ]
+}

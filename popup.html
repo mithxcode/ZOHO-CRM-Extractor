@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { font-family: Arial; padding: 10px; width: 200px; }
+    button { width: 100%; padding: 8px; }
+  </style>
+</head>
+<body>
+  <h3>ZOHO CRM Data Extractor</h3>
+
+  <label for="module" style="font-weight:bold;">Select Module:</label>
+  <select id="module">
+    <option value="leads">Leads</option>
+    <option value="contacts">Contacts</option>
+    <option value="deals">Deals</option>
+  </select>
+
+  <button id="extract">Extract Data</button>
+  <button id="delete">Delete Module Data</button>
+  <button id="clear">Clear All Data</button>
+  <button id="export">Export CSV</button>
+
+  <pre id="output">No data</pre>
+
+  <script>
+    document.getElementById("show").onclick = () => {
+      chrome.storage.local.get("leads", res => {
+        alert(JSON.stringify(res.leads || [], null, 2));
+      });
+    };
+  </script>
+</body>
+</html>
