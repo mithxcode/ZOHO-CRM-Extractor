@@ -4,12 +4,6 @@
 Zoho CRM Data Extractor is a Chrome Extension built using **Manifest V3**.  
 It demonstrates extraction of CRM module data (**Leads, Contacts, Accounts, Deals, Tasks**), local persistence, and visualization in a **professional popup dashboard**.
 
-**Purpose for Assessment:**
-- Show understanding of **Chrome Extension architecture**
-- Demonstrate **data flow, storage design, and UI interaction**
-- Maintain **modular and extendable code structure**
-
----
 
 ## Key Features
 
