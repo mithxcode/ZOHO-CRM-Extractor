@@ -103,3 +103,10 @@ It demonstrates extraction of CRM module data (**Leads, Contacts, Accounts, Deal
    - Output updates **in real-time** with each extraction or deletion.
 
 ---
+## Author
+
+- **Name:** Mithilesh Kumar  
+- **Email:** mithi440kr@gmail.com  
+- **GitHub:** [Mithilesh Kumar (mithxcode)](https://github.com/mithxcode)  
+
+---
