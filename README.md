@@ -50,92 +50,62 @@ It demonstrates extraction of CRM module data (**Leads, Contacts, Accounts, Deal
 
 ---
 
-## Storage Schema
+## Extension Architecture
 
-All data is stored in `chrome.storage.local` with module-based structure:
+### 1. Popup (UI Layer)
+- Provides a **professional popup interface** for the user.
+- Features:
+  - **Module selection dropdown** (Leads, Contacts, Accounts, Deals, Tasks)
+  - **Buttons:**
+    - Extract Data
+    - Delete Module Data
+    - Clear All Data
+    - Export CSV
+  - **Scrollable JSON output area** to view extracted data.
+- Ensures **real-time interaction** with content scripts and storage.
 
-```json
-{
-  "zoho_data": {
-    "leads": [],
-    "contacts": [],
-    "accounts": [],
-    "deals": [],
-    "tasks": [],
-    "lastSync": 0
-  }
-}
-Notes:
+### 2. Content Scripts (Extraction Layer)
+- Responsible for **data extraction per module**.
+- Currently uses **mock/dummy data** for safe testing.
+- Can be extended to **read live Zoho CRM DOM elements**.
+- Handles **message passing** to popup using `chrome.runtime.sendMessage`.
+- Modular design allows **easy addition of new modules** in future.
 
-Each module stores an array of records
+### 3. Storage Layer
+- Uses `chrome.storage.local` for **module-based storage**.
+- Structure:
+  - `zoho_data` object with keys for each module.
+  - `lastSync` timestamp to track last extraction.
+- Supports operations:
+  - **Delete Module Data** → Removes data for a selected module only.
+  - **Clear All Data** → Removes all module data.
+- Ensures **persistent storage** between Chrome sessions.
 
-lastSync tracks the last extraction timestamp
+### 4. Export Layer
+- Combines all module data into a **single CSV file**.
+- Exports data with:
+  - Column headers corresponding to record fields.
+  - Each record per line in CSV.
+- Automatically opens CSV in a new tab for download.
 
-Deleting a module removes only that module's data
+---
 
-Extension Architecture
-Popup (UI Layer)
+## Usage Instructions
 
-Module selection dropdown
+1. **Install Extension**
+   - Open Chrome → `chrome://extensions/`
+   - Enable **Developer Mode**
+   - Click **Load unpacked** → Select extension folder.
 
-Buttons: Extract, Delete Module, Clear All, Export CSV
+2. **Using the Popup**
+   - **Select Module**: Leads / Contacts / Deals / Accounts / Tasks
+   - **Extract Data**: Generates JSON for selected module
+   - **Delete Module Data**: Deletes only the selected module’s data
+   - **Clear All Data**: Deletes all stored data
+   - **Export CSV**: Downloads CSV of all module data
 
-Output area displays JSON
+3. **Viewing Output**
+   - Extracted JSON appears in a **scrollable popup area**.
+   - Output updates **in real-time** with each extraction or deletion.
 
-Content Scripts (Extraction Layer)
-
-Generates dummy data per module
-
-Can be extended to scrape live Zoho CRM DOM
-
-Sends extracted data back via chrome.runtime.sendMessage
-
-Storage Layer
-
-Data stored in chrome.storage.local
-
-Supports delete module and clear all operations
-
-Export Layer
-
-Combines all module data into a single CSV
-
-Downloads automatically
-
-Usage Instructions
-Install extension via chrome://extensions/ → Load unpacked
-
-Click the extension icon in the Chrome toolbar
-
-Select Module: Leads / Contacts / Deals / Accounts / Tasks
-
-Extract Data: Generates and displays JSON in popup
-
-Delete Module Data: Deletes selected module instantly
-
-Clear All Data: Deletes all stored data
-
-Export CSV: Downloads all module data as CSV
-
-Assessment Highlights
-Demonstrates Chrome Extension messaging and storage design
-
-Shows ability to generate, manipulate, and export structured data
-
-Modular, maintainable, and ready for live CRM integration
-
-Professional, user-friendly popup interface for assessment/demo
-
-Future Enhancements
-Live DOM scraping for real Zoho CRM data
-
-Shadow DOM handling for advanced pages
-
-Pagination support for large datasets
-
-Filtering by stage, date, or owner
-
-Improved UI/UX with React components
-
-Background sync for automatic updates
-
+---
