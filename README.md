@@ -106,7 +106,7 @@ It demonstrates extraction of CRM module data (**Leads, Contacts, Accounts, Deal
 ## Author
 
 - **Name:** Mithilesh Kumar  
-- **Email:** mithi440kr@gmail.com  
+- **Email:** mithxcode@gmail.com  
 - **GitHub:** [Mithilesh Kumar (mithxcode)](https://github.com/mithxcode)  
 
 ---
